@@ -1,16 +1,11 @@
-import { Button, Container, Typography } from '@mui/material'
+import { Routes, Route } from 'react-router-dom'
+import OrdersPage from './pages/orders'
 
 function App() {
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>
-        Sistema de OS
-      </Typography>
-
-      <Button variant="contained">
-        Teste MUI
-      </Button>
-    </Container>
+    <Routes>
+      <Route path="/orders" element={<OrdersPage />} />
+    </Routes>
   )
 }
 
