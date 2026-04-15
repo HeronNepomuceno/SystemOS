@@ -66,7 +66,7 @@ export const createOS = async (req: Request, res: Response) => {
 
 export const listOS = async (req: Request, res: Response) => {
   const status = parseStringQuery(req.query.status)
-  const tecnicoId = parseNumberQuery(req.query.tecnico_id)
+  const tecnicoId = parseStringQuery(req.query.tecnico_id)
   const dataInicial = parseDateQuery(req.query.data_inicial)
   const dataFinal = parseDateQuery(req.query.data_final)
 
@@ -74,25 +74,39 @@ export const listOS = async (req: Request, res: Response) => {
     return res.status(400).json({ error: 'Status inválido' })
   }
 
-  const query = supabase.from('ordens_de_servico').select()
-
-  if (status) {
-    query.eq('status', status)
+  if (tecnicoId && !uuidRegex.test(tecnicoId)) {
+    return res.status(400).json({ error: 'tecnico_id inválido' })
   }
 
-  if (tecnicoId !== undefined) {
-    query.eq('tecnico_id', tecnicoId)
+  if (dataInicial && dataFinal) {
+    if (new Date(dataInicial) > new Date(dataFinal)) {
+      return res.status(400).json({ error: 'Intervalo de datas inválido' })
+    }
+  }
+
+  let query = supabase
+    .from('ordens_de_servico')
+    .select('*')
+
+  if (status) {
+    query = query.eq('status', status)
+  }
+
+  if (tecnicoId) {
+    query = query.eq('tecnico_id', tecnicoId)
   }
 
   if (dataInicial) {
-    query.gte('criado_em', dataInicial)
+    query = query.gte('criado_em', dataInicial)
   }
 
   if (dataFinal) {
-    query.lte('criado_em', dataFinal)
+    query = query.lte('criado_em', dataFinal)
   }
 
-  const { data, error } = await query.order('criado_em', { ascending: false })
+  const { data, error } = await query.order('criado_em', {
+    ascending: false
+  })
 
   if (error) {
     return res.status(500).json({ error: error.message })
