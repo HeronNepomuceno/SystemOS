@@ -1,7 +1,6 @@
-import { app } from './app'
-import dotenv from 'dotenv'
+import './config/env'
 
-dotenv.config()
+import { app } from './app'
 
 const PORT = process.env.PORT || 3333
 
