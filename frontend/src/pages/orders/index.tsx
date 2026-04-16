@@ -28,6 +28,8 @@ import EventIcon from '@mui/icons-material/Event'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 
+import { useOrdersRealtime } from '../../hooks/useOrdersRealtime'
+
 const API_BASE_URL = 'http://localhost:3333/api'
 const STATUS_OPTIONS = [
   'Aberta',
@@ -202,6 +204,8 @@ export default function OrdersPage() {
       setLoadingTecnicos(false)
     }
   }
+
+  useOrdersRealtime(fetchOrders)
 
   const handleSelectFilterChange =
     (field: keyof Filters) => (event: SelectChangeEvent<string>) => {
