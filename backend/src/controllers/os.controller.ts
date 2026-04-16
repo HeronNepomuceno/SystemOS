@@ -25,13 +25,6 @@ const parseStringQuery = (value: unknown): string | undefined => {
   return Array.isArray(value) ? value[0] : String(value)
 }
 
-const parseNumberQuery = (value: unknown): number | undefined => {
-  const stringValue = parseStringQuery(value)
-  if (!stringValue) return undefined
-  const numberValue = Number(stringValue)
-  return Number.isNaN(numberValue) ? undefined : numberValue
-}
-
 export const createOS = async (req: Request, res: Response) => {
   const {
     cliente_nome,
