@@ -29,30 +29,13 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 
 import { useOrdersRealtime } from '../../hooks/useOrdersRealtime'
+import {
+  fetchOrders as fetchOrdersList,
+  ORDER_STATUS_OPTIONS,
+  type Order as OrdemServico
+} from '../../services/orders'
 
 const API_BASE_URL = 'http://localhost:3333/api'
-const STATUS_OPTIONS = [
-  'Aberta',
-  'Agendada',
-  'Em Atendimento',
-  'Finalizada',
-  'Cancelada'
-] as const
-
-type Status = (typeof STATUS_OPTIONS)[number]
-
-type OrdemServico = {
-  id: string | number
-  cliente_nome: string
-  cliente_contato: string
-  equipamento: string
-  descricao_problema: string
-  status: Status
-  tecnico_id: string | null
-  criado_em: string
-  data_agendamento?: string | null
-  laudo?: string | null
-}
 
 type Tecnico = {
   id: string
@@ -159,24 +142,8 @@ export default function OrdersPage() {
       setLoading(true)
       setError(null)
 
-      const params = new URLSearchParams()
-
-      if (filters.status) params.set('status', filters.status)
-      if (filters.tecnico_id) params.set('tecnico_id', filters.tecnico_id)
-      if (filters.data_inicial) params.set('data_inicial', filters.data_inicial)
-      if (filters.data_final) params.set('data_final', filters.data_final)
-
-      const queryString = params.toString()
-      const response = await fetch(
-        `${API_BASE_URL}/orders${queryString ? `?${queryString}` : ''}`
-      )
-
-      if (!response.ok) {
-        throw new Error('Erro ao buscar ordens de serviço')
-      }
-
-      const data = await response.json()
-      setOrders(Array.isArray(data) ? data : [])
+      const data = await fetchOrdersList(filters)
+      setOrders(data)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro inesperado')
     } finally {
@@ -572,7 +539,7 @@ export default function OrdersPage() {
               fullWidth
             >
               <MenuItem value="">Todos os status</MenuItem>
-              {STATUS_OPTIONS.map((status) => (
+              {ORDER_STATUS_OPTIONS.map((status) => (
                 <MenuItem key={status} value={status}>
                   {status}
                 </MenuItem>
