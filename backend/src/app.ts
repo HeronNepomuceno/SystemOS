@@ -1,8 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import swaggerUi from 'swagger-ui-express'
-import { osRoutes } from './routes/os.routes'
-import { tecnicosRoutes } from './routes/tecnicos.routes'
+import { osRoutes, tecnicosRoutes } from './routes'
 import { swaggerSpec } from './config/swagger'
 
 const app = express()

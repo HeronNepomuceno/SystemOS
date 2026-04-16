@@ -5,7 +5,7 @@ import {
   getTecnicoById,
   updateTecnico,
   deleteTecnico
-} from '../controllers/tecnicos.controller'
+} from '../controllers'
 
 const router = Router()
 

@@ -5,7 +5,7 @@ import {
   getOSById,
   updateOS,
   deleteOS
-} from '../controllers/os.controller'
+} from '../controllers'
 
 const router = Router()
 
