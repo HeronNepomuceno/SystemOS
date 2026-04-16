@@ -1,22 +1,7 @@
 import { Request, Response } from 'express'
 import { supabase } from '../config/supabase'
+import { parseStringQuery, parseBooleanQuery, uuidRegex } from './utils'
 
-const uuidRegex =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
-
-const parseStringQuery = (value: unknown): string | undefined => {
-  if (!value) return undefined
-  return Array.isArray(value) ? value[0] : String(value)
-}
-
-const parseBooleanQuery = (value: unknown): boolean | undefined => {
-  if (value === undefined || value === null) return undefined
-  const stringValue = Array.isArray(value) ? value[0] : String(value)
-  const normalized = stringValue.toLowerCase()
-  if (normalized === 'true') return true
-  if (normalized === 'false') return false
-  return undefined
-}
 
 export const createTecnico = async (req: Request, res: Response) => {
   const { nome, especialidade, contato, ativo = true } = req.body

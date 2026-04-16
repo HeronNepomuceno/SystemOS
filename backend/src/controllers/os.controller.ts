@@ -1,8 +1,7 @@
 import { Request, Response } from 'express'
 import { supabase } from '../config/supabase'
+import { parseDateQuery, parseStringQuery, uuidRegex } from './utils'
 
-const uuidRegex =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
 
 const allowedStatuses = [
   'Aberta',
@@ -11,19 +10,6 @@ const allowedStatuses = [
   'Finalizada',
   'Cancelada'
 ]
-
-const parseDateQuery = (value: unknown): string | null => {
-  if (!value) return null
-  const dateValue = Array.isArray(value) ? value[0] : value
-  if (typeof dateValue !== 'string') return null
-  const date = new Date(dateValue)
-  return Number.isNaN(date.getTime()) ? null : date.toISOString()
-}
-
-const parseStringQuery = (value: unknown): string | undefined => {
-  if (!value) return undefined
-  return Array.isArray(value) ? value[0] : String(value)
-}
 
 export const createOS = async (req: Request, res: Response) => {
   const {
