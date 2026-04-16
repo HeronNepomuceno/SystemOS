@@ -14,9 +14,12 @@
   "type": "commonjs",
   "dependencies": {
     "@supabase/supabase-js": "^2.103.0",
+    "@types/swagger-ui-express": "^4.1.8",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
