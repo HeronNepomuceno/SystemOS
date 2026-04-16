@@ -205,6 +205,8 @@ export const updateOS = async (req: Request, res: Response) => {
     return res.status(400).json({ error: 'Não é permitido atualizar uma OS finalizada' })
   }
 
+  updates.atualizado_em = new Date().toISOString();
+
   const { data, error } = await supabase
     .from('ordens_de_servico')
     .update(updates)
