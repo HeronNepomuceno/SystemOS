@@ -27,6 +27,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import EventIcon from '@mui/icons-material/Event'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import BlockIcon from '@mui/icons-material/Block';
 
 import { useOrdersRealtime } from '../../hooks/useOrdersRealtime'
 import {
@@ -455,6 +456,38 @@ export default function OrdersPage() {
     }
   }
 
+  const handleCancelOrder = async (order: OrdemServico) => {
+    if (!window.confirm(`Tem certeza que deseja cancelar a OS de ${order.cliente_nome}?`)) {
+      return
+    }
+
+    try {
+      setSaving(true)
+      setError(null)
+
+      const response = await fetch(`${API_BASE_URL}/orders/${order.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          status: 'Cancelada'
+        })
+      })
+
+      if (!response.ok) {
+        throw new Error('Erro ao cancelar ordem de serviço')
+      }
+
+      setSuccessMessage('Ordem de serviço cancelada com sucesso')
+      await fetchOrders()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro inesperado')
+    } finally {
+      setSaving(false)
+    }
+  }
+
   const renderStatusAction = (order: OrdemServico) => {
     if (order.status === 'Aberta') {
       return (
@@ -634,6 +667,20 @@ export default function OrdersPage() {
                         >
                           Editar
                         </Button>
+
+                        {order.status !== 'Finalizada' && order.status !== 'Cancelada' && (
+                          <Button
+                            size="small"
+                            variant="text"
+                            color="error"
+                            startIcon={<BlockIcon />}
+                            onClick={() => handleCancelOrder(order)}
+                            disabled={saving}
+                          >
+                            Cancelar
+                          </Button>
+                        )}
+                        
                         {renderStatusAction(order)}
                       </Stack>
                     </TableCell>
