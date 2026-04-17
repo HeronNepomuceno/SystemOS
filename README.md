@@ -1,10 +1,10 @@
-# 🚀 Sistema de Gestão de Ordens de Serviço (OS)
+# Sistema de Gestão de Ordens de Serviço (OS)
 
 Projeto desenvolvido como parte do desafio técnico para a vaga de **Desenvolvedor Full Stack 2**.
 
 ---
 
-## 📌 Sobre o projeto
+## Sobre o projeto
 
 Este sistema tem como objetivo gerenciar o ciclo completo de **Ordens de Serviço (OS)** em uma empresa de manutenção, permitindo:
 
@@ -18,19 +18,30 @@ A aplicação foi desenvolvida com foco em **entrega funcional, clareza e simpli
 
 ---
 
-## 🌐 Acesso ao projeto
+## Acesso ao projeto
 
-🔗 **Frontend (Netlify):**
+**Frontend (Netlify):**
 https://systemos-desafio.netlify.app/ordens-de-servico
 
-🔗 **Backend (Render):**
+### Rotas principais da aplicação
+
+Após acessar o frontend, as principais rotas disponíveis são:
+
+- `/dashboard` → Visão geral e métricas do sistema
+- `/ordens-de-servico` → Gestão de ordens de serviço (_com realtime_)
+- `/tecnicos` → Cadastro e visualização de técnicos
+- `/public` → Página pública de acompanhamento de OS (_com realtime_)
+
+**Backend (Render):**
 https://systemos-a6id.onrender.com
+
+Após acessar o backend, a rota `/api-docs` contém a documentação da API (Swagger):
 
 > ⚠️ Observação: o backend está hospedado em um plano gratuito do Render, podendo levar alguns segundos para responder na primeira requisição após inatividade.
 
 ---
 
-## 🏗️ Arquitetura
+## Arquitetura
 
 O projeto foi estruturado como um **monorepo**, dividido em:
 
@@ -39,7 +50,7 @@ O projeto foi estruturado como um **monorepo**, dividido em:
 /frontend → Aplicação web (React + Vite + TypeScript)
 ```
 
-### 🎯 Decisão de Arquitetura
+### Decisão de Arquitetura
 
 Optei por uma arquitetura **simples e direta**, sem adoção de padrões mais complexos como Clean Architecture.
 
@@ -59,7 +70,7 @@ Em um cenário real de produção, a arquitetura poderia evoluir para uma estrut
 
 ---
 
-## ⚙️ Tecnologias utilizadas
+## Tecnologias utilizadas
 
 ### Backend
 
@@ -78,7 +89,7 @@ Em um cenário real de produção, a arquitetura poderia evoluir para uma estrut
 * Recharts
 * Supabase Realtime
 
-### 🎯 Motivação das escolhas
+### Motivação das escolhas
 
 As tecnologias foram escolhidas com base em:
 
@@ -89,7 +100,7 @@ As tecnologias foram escolhidas com base em:
 
 ---
 
-## 🔄 Realtime
+## Realtime
 
 Um dos diferenciais do projeto é a implementação de **atualizações em tempo real** utilizando o Supabase Realtime.
 
@@ -108,7 +119,7 @@ Isso foi aplicado especialmente na:
 
 ---
 
-## 🔐 Segurança (CORS)
+## Segurança (CORS)
 
 Foi implementado controle de CORS no backend, permitindo requisições apenas de origens específicas:
 
@@ -136,12 +147,9 @@ app.use(cors({
 
 ---
 
-## 🧪 Testes
+## Testes
 
-Foram implementados testes unitários utilizando:
-
-* Jest
-* Supertest
+Foram implementados testes unitários utilizando Jest
 
 Foco principal:
 
@@ -151,12 +159,12 @@ Foco principal:
 
 ---
 
-## ▶️ Como rodar o projeto localmente
+## Como rodar o projeto localmente
 
 ### 1. Clone o repositório
 
 ```bash
-git clone <URL_DO_REPOSITORIO>
+git clone https://github.com/HeronNepomuceno/SystemOS.git
 cd projeto
 ```
 
@@ -197,6 +205,14 @@ http://localhost:3333
 cd frontend
 npm install
 npm run dev
+```
+
+#### Frontend (`/frontend/.env`)
+
+```env
+VITE_SUPABASE_URL=your_url
+VITE_SUPABASE_ANON_KEY=your_anon_key
+VITE_API_BASE_URL=http://localhost:3333/api
 ```
 
 A aplicação estará disponível em:
@@ -245,34 +261,37 @@ Este projeto foi desenvolvido com foco em demonstrar capacidade técnica dentro 
 
 Por isso, algumas decisões foram tomadas de forma consciente:
 
-* ❌ Ausência de autenticação/autorização
-* ❌ Sem controle de permissões por perfil
-* ❌ Sem upload de arquivos
-* ❌ UI com foco funcional (não polida)
+* Ausência de autenticação/autorização
+* Sem controle de permissões por perfil
+* Sem upload de arquivos
+* UI minimalista com foco funcional (não polida)
 
 ---
 
-## 🧠 Auto-crítica
+## Auto-crítica
 
 Durante o desenvolvimento, alguns pontos poderiam ser melhorados:
 
-* 🔤 **Padronização de nomenclatura:**
+* **Padronização de nomenclatura:**
   Há mistura entre português e inglês em nomes de arquivos, rotas e variáveis.
 
-* 🧱 **Arquitetura:**
+* **Arquitetura:**
   Poderia evoluir para uma separação mais clara de camadas (ex: services, repositories).
 
-* 🔐 **Segurança:**
+* **Segurança:**
   Falta de autenticação e controle de acesso.
 
-* 🧪 **Cobertura de testes:**
+* **Cobertura de testes:**
   Testes poderiam ser mais abrangentes, incluindo cenários de integração e E2E.
+
+* **Componetização e refatorações em algumas páginas do frontend:**
+  Algumas páginas ficaram com muitas linhas de código.
 
 Esses pontos são conhecidos e seriam tratados em uma evolução natural do projeto.
 
 ---
 
-## 🚀 Possíveis melhorias futuras
+## Possíveis melhorias futuras
 
 * Implementar autenticação (JWT)
 * Controle de permissões por perfil
@@ -281,19 +300,3 @@ Esses pontos são conhecidos e seriam tratados em uma evolução natural do proj
 * Adicionar logs estruturados
 * Implementar CI/CD completo
 * Dockerização
-
----
-
-## 📌 Considerações finais
-
-Este projeto foi construído buscando equilibrar:
-
-* qualidade técnica
-* clareza de implementação
-* entrega completa das funcionalidades
-
-com decisões pragmáticas diante do tempo disponível.
-
----
-
-Feito com foco em evolução contínua 🚀
