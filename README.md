@@ -21,7 +21,7 @@ A aplicação foi desenvolvida com foco em **entrega funcional, clareza e simpli
 ## Acesso ao projeto
 
 **Frontend (Netlify):**
-https://systemos-desafio.netlify.app/ordens-de-servico
+https://systemos-desafio.netlify.app
 
 ### Rotas principais da aplicação
 
