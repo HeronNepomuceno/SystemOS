@@ -21,7 +21,7 @@ import {
 import AddIcon from '@mui/icons-material/Add'
 import RefreshIcon from '@mui/icons-material/Refresh'
 
-const API_BASE_URL = 'http://localhost:3333/api'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 type Tecnico = {
   id: string

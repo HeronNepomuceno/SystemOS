@@ -20,7 +20,7 @@ import {
   YAxis
 } from 'recharts'
 
-const API_BASE_URL = 'http://localhost:3333/api'
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 const MS_PER_HOUR = 1000 * 60 * 60
 const MS_PER_DAY = MS_PER_HOUR * 24
 
