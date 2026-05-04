@@ -226,7 +226,7 @@ export default function DashboardPage() {
     <Box sx={{ p: 3 }}>
       <Stack spacing={3}>
         <Box sx={{ mb: 1 }}>
-          <Typography variant="h4">Dashboard</Typography>
+          <Typography variant="h4">Dashboard SystemOS</Typography>
           <Typography variant="body2" color="text.secondary">
             Estatisticas gerais das ordens de servico
           </Typography>
